@@ -1,0 +1,707 @@
+:root {
+    --primary-color: #000000;
+    --secondary-color: #333333;
+    --text-color: #FFFFFF;
+    --background-color: #111111;
+    --accent-color: #444444;
+    --spacing-unit: 8px;
+    --mega-text-color: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto Flex', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 600;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+    color: var(--text-color);
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 calc(var(--spacing-unit) * 4);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.hero-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.intro-text {
+    max-width: 800px;
+}
+
+.greeting {
+    font-size: 1.5rem;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    font-weight: 300;
+}
+
+h1.pressure-text {
+    font-size: 5rem;
+    line-height: 1.2;
+    margin-bottom: calc(var(--spacing-unit) * 6);
+    font-weight: 400;
+    transition: all 0.3s ease;
+    font-variation-settings: 'wght' 400, 'wdth' 100, 'ital' 0;
+}
+
+.description {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    background: #333;
+}
+
+.works {
+    background-color: var(--background-color);
+    padding: calc(var(--spacing-unit) * 16) calc(var(--spacing-unit) * 4);
+}
+
+.works-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-header {
+    margin-bottom: calc(var(--spacing-unit) * 12);
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.works-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: calc(var(--spacing-unit) * 16);
+}
+
+.work-item {
+    display: grid;
+    gap: calc(var(--spacing-unit) * 4);
+}
+
+.work-media {
+    position: relative;
+    width: 100%;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.work-media video,
+.work-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.work-info {
+    max-width: 600px;
+}
+
+.work-info h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    color: var(--text-color);
+}
+
+.work-info p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+    .works-grid {
+        gap: calc(var(--spacing-unit) * 24);
+    }
+
+    .work-item {
+        grid-template-columns: 3fr 2fr;
+        align-items: center;
+        gap: calc(var(--spacing-unit) * 8);
+    }
+
+    .work-item:nth-child(even) {
+        grid-template-columns: 2fr 3fr;
+        direction: rtl;
+    }
+
+    .work-item:nth-child(even) .work-info {
+        direction: ltr;
+    }
+}
+
+/* 更新字體定義 */
+@font-face {
+    font-family: 'Inter var';
+    src: url('https://rsms.me/inter/font-files/Inter.var.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: oblique 0deg 10deg;
+}
+
+.pressure-text {
+    font-family: 'Inter var', sans-serif;
+    cursor: default;
+}
+
+/* 添加新的 intro hero 樣式 */
+.intro-hero {
+    position: relative;
+    height: 100vh;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.intro-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.5s ease;
+    background-color: transparent;
+}
+
+.intro-content.scrolled {
+    opacity: 0;
+}
+
+.showreel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin-top: 100vh; /* 確保在 hero page 之後 */
+}
+
+.showreel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.showreel-container.loaded {
+    opacity: 1;
+}
+
+.showreel-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 40px; /* 影片也添加圓角 */
+}
+
+.video-control {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.video-control:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.video-control svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+}
+
+.video-control .pause-icon {
+    display: block;
+}
+
+.video-control .play-icon {
+    display: none;
+}
+
+.video-control.paused .pause-icon {
+    display: none;
+}
+
+.video-control.paused .play-icon {
+    display: block;
+}
+
+/* 音量控制按鈕樣式 */
+.volume-control {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem; /* 放置在左下角 */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.volume-control:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.volume-control svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+}
+
+.volume-control .volume-on-icon {
+    display: block;
+}
+
+.volume-control .volume-off-icon {
+    display: none;
+}
+
+.volume-control.muted .volume-on-icon {
+    display: none;
+}
+
+.volume-control.muted .volume-off-icon {
+    display: block;
+}
+
+/* 自我介紹區塊 */
+.about-section {
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+}
+
+.about-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--spacing-unit) * 8);
+}
+
+.about-image {
+    aspect-ratio: 3/4;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.about-text {
+    padding: calc(var(--spacing-unit) * 4);
+}
+
+/* 作品集網格區塊 */
+.portfolio-section {
+    background-color: var(--background-color);
+}
+
+.portfolio-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: calc(var(--spacing-unit) * 4);
+}
+
+.portfolio-item {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: calc(var(--spacing-unit) * 2);
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+/* 聯絡資訊區塊 */
+.contact-section {
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.contact-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--spacing-unit) * 4);
+    margin-top: calc(var(--spacing-unit) * 4);
+}
+
+.contact-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: opacity 0.3s ease;
+}
+
+.contact-link:hover {
+    opacity: 0.7;
+}
+
+/* RWD 響應式設計 */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        padding: 1rem 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}
+
+.dock-nav {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    pointer-events: none;
+    height: 256px;
+}
+
+.dock-panel {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 2rem;
+    background-color: rgba(6, 6, 6, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid #222;
+    border-radius: 1rem;
+    pointer-events: auto;
+}
+
+.dock-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #060606;
+    border: 1px solid #222;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.dock-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dock-label {
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: rgba(6, 6, 6, 0.9);
+    border: 1px solid #333;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #fff;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.dock-label::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: rgba(6, 6, 6, 0.9);
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+.dock-item:hover .dock-label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.page-section:last-child {
+    margin-bottom: 0;
+    min-height: auto;
+    padding-bottom: 5rem;
+}
+
+/* 更新 intro-content 樣式 */
+.intro-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.5s ease;
+    /* 移除背景色 */
+    background-color: transparent;
+}
+
+/* 更新 mega-title 樣式 */
+.mega-title {
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: clamp(4rem, 15vw, 12rem);
+    line-height: 0.9;
+    color: var(--text-color);
+    text-align: center;
+    letter-spacing: -0.02em;
+    transition: all 0.2s ease;
+    mix-blend-mode: difference; /* 使文字與背景混合 */
+}
+
+/* 更新 hero-section 樣式 */
+.hero-section {
+    position: relative;
+    min-height: 200vh;
+    background-color: var(--primary-color);
+    overflow: hidden;
+}
+
+/* 更新遮罩層樣式 */
+.hero-section::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom,
+        var(--primary-color) 0%,
+        transparent 50%,
+        var(--primary-color) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+    transition: opacity 0.5s ease; /* 添加過渡效果 */
+}
+
+/* 添加隱藏遮罩的樣式 */
+.hero-section.hide-mask::after {
+    opacity: 0;
+}
+
+/* 更新 intro-content 樣式 */
+.intro-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.5s ease;
+    /* 移除背景色 */
+    background-color: transparent;
+}
+
+/* 更新 mega-title 樣式 */
+.mega-title {
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: clamp(4rem, 15vw, 12rem);
+    line-height: 0.9;
+    color: var(--text-color);
+    text-align: center;
+    letter-spacing: -0.02em;
+    transition: all 0.2s ease;
+    mix-blend-mode: difference; /* 使文字與背景混合 */
+}
+
+/* 更新 hero-section 樣式 */
+.hero-section {
+    position: relative;
+    min-height: 200vh;
+    background-color: var(--primary-color);
+    overflow: hidden;
+}
+
+/* 添加遮罩層來處理滾動時的過渡 */
+.hero-section::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom,
+        var(--primary-color) 0%,
+        transparent 50%,
+        var(--primary-color) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+} 
