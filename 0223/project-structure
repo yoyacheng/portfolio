@@ -1,8 +1,0 @@
-portfolio/
-  ├── index.html
-  ├── css/
-  │   ├── style.css
-  │   └── animations.css
-  ├── js/
-  │   └── main.js
-  └── images/ 
