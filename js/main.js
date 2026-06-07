@@ -89,141 +89,62 @@ function initMegaTitle() {
 }
 
 function initDock() {
+    const dockNav = document.querySelector('.dock-nav');
     const dock = document.querySelector('.dock-panel');
     const items = dock.querySelectorAll('.dock-item');
-    
-    // 調整參數
-    const spring = {
-        mass: 1,
-        stiffness: 80,     // 降低剛性
-        damping: 15,       // 增加阻尼
-        precision: 0.01
-    };
-    
-    // 調整大小參數
-    const baseItemSize = 50;
-    const magnification = 65;   // 減小放大倍率
-    const distance = 120;      // 減小影響範圍
-    
-    function createSpring(initialValue) {
-        let velocity = 0;
-        let currentValue = initialValue;
-        let targetValue = initialValue;
 
-        return {
-            set: function(value) {
-                targetValue = value;
-            },
-            update: function() {
-                const force = (targetValue - currentValue) * spring.stiffness;
-                const damping = velocity * spring.damping;
-                const acceleration = (force - damping) / spring.mass;
-                
-                velocity += acceleration * 0.0007; // 降低速度
-                currentValue += velocity;
-                
-                if (Math.abs(targetValue - currentValue) < spring.precision && 
-                    Math.abs(velocity) < spring.precision) {
-                    currentValue = targetValue;
-                    velocity = 0;
-                }
-                
-                return currentValue;
-            },
-            getCurrentValue: function() {
-                return currentValue;
-            }
-        };
-    }
+    const influence = 120;
+    const maxScale = 0.5;
+    const minOpacity = 0.45;
+    const minBrightness = 0.55;
 
-    const itemSprings = new Map();
-    items.forEach(item => {
-        itemSprings.set(item, createSpring(baseItemSize));
-    });
-
-    function updateSizes() {
-        let isAnimating = false;
-
-        items.forEach(item => {
-            const spring = itemSprings.get(item);
-            const currentSize = spring.getCurrentValue();
-            const newSize = spring.update();
-            
-            if (Math.abs(currentSize - newSize) > spring.precision) {
-                isAnimating = true;
-            }
-            
-            // 更新容器大小
-            item.style.width = `${newSize}px`;
-            item.style.height = `${newSize}px`;
-            
-            // 更新圖標大小，保持圖標大小相對穩定
-            const icon = item.querySelector('.dock-icon');
-            if (icon) {
-                // 使用平方根來平滑縮放
-                const scaleRatio = Math.sqrt(baseItemSize / newSize);
-                icon.style.transform = `scale(${scaleRatio})`;
-            }
-        });
-
-        if (isAnimating) {
-            requestAnimationFrame(updateSizes);
-        }
-    }
-
-    function updateItemSize(item, mouseX) {
-        const rect = item.getBoundingClientRect();
-        const itemCenterX = rect.left + rect.width / 2;
-        const mouseDistance = Math.abs(mouseX - itemCenterX);
-        
-        const spring = itemSprings.get(item);
-        if (mouseDistance < distance) {
-            const factor = 1 - (mouseDistance / distance);
-            // 使用更平滑的緩動函數
-            const easing = factor * factor * (3 - 2 * factor);
-            const targetSize = baseItemSize + (magnification - baseItemSize) * easing;
-            spring.set(targetSize);
-        } else {
-            spring.set(baseItemSize);
-        }
-        
-        requestAnimationFrame(updateSizes);
-    }
-
-    // 處理標籤顯示
     items.forEach(item => {
         const label = document.createElement('div');
         label.className = 'dock-label';
         label.textContent = item.dataset.label;
         item.appendChild(label);
-
-        item.addEventListener('mouseenter', () => {
-            label.style.opacity = '1';
-            label.style.visibility = 'visible';
-            label.style.transform = 'translateX(-50%) translateY(0)';
-        });
-
-        item.addEventListener('mouseleave', () => {
-            label.style.opacity = '0';
-            label.style.visibility = 'hidden';
-            label.style.transform = 'translateX(-50%) translateY(10px)';
-        });
     });
 
-    // 鼠標移動處理
-    dock.addEventListener('mousemove', (e) => {
-        items.forEach(item => updateItemSize(item, e.clientX));
-    });
-
-    dock.addEventListener('mouseleave', () => {
+    function resetItems() {
         items.forEach(item => {
-            const spring = itemSprings.get(item);
-            spring.set(baseItemSize);
+            item.style.scale = '1';
+            item.style.opacity = '1';
+            item.style.filter = 'none';
+
+            const label = item.querySelector('.dock-label');
+            if (label) {
+                label.style.opacity = '0';
+                label.style.visibility = 'hidden';
+                label.style.transform = 'translateX(-50%) translateY(10px)';
+            }
+        });
+    }
+
+    dockNav.addEventListener('pointermove', (e) => {
+        items.forEach(item => {
+            const r = item.getBoundingClientRect();
+            const t = Math.max(0, 1 - Math.abs(e.clientX - r.x - r.width / 2) / influence);
+
+            item.style.scale = String(1 + t * maxScale);
+            item.style.opacity = String(minOpacity + t * (1 - minOpacity));
+            item.style.filter = `brightness(${minBrightness + t * (1 - minBrightness)})`;
+
+            const label = item.querySelector('.dock-label');
+            if (label) {
+                if (t > 0.5) {
+                    label.style.opacity = String(t);
+                    label.style.visibility = 'visible';
+                    label.style.transform = 'translateX(-50%) translateY(0)';
+                } else {
+                    label.style.opacity = '0';
+                    label.style.visibility = 'hidden';
+                    label.style.transform = 'translateX(-50%) translateY(10px)';
+                }
+            }
         });
     });
 
-    // 開始動畫循環
-    updateSizes();
+    dockNav.addEventListener('pointerleave', resetItems);
 }
 
 // 將導航欄相關邏輯移到單獨的函數中
